@@ -6,16 +6,61 @@ using System.Threading.Tasks;
 
 namespace Rodrigo1
 {
-    class Program
+    public class BankAccount 
     {
-        static void Main(string[] args)
-        {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
 
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+        public string m_customerName { get; set; }
+        public double m_balance { get; set; }
+
+        public BankAccount(string customerName, double balance)
+        {
+            m_customerName = customerName;
+            m_balance = balance;
+        }
+
+        public string CustomerName
+        {
+            get { return m_customerName; }
+        }
+
+        public double Balance
+        {
+            get { return m_balance; }
+        }
+
+        public void Debit(double amount)
+        {
+            if (amount > m_balance)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+
+            m_balance += amount;
+        }
+
+        public void Credit(double amount)
+        {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+
+            m_balance += amount;
+        }
+
+        public static void Main()
+        {
+            BankAccount ba = new BankAccount("Mr. PC", 11.99);
+
+            ba.Credit(5.77);
+            ba.Debit(11.22);
+            Console.WriteLine("Current balance is ${0}", ba.Balance);
         }
     }
 }
+
